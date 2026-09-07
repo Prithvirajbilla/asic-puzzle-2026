@@ -24,8 +24,9 @@ Run these commands from the repository root with Python 3.10 or newer:
 ./solution/run.sh
 ```
 
-`setup.sh` creates `solution/.venv` and installs the pinned `gdstk 1.0.1` and
-`Shapely 2.0.7` packages. `run.sh` extracts the netlist from `puzzle.gds`, replays
+`setup.sh` creates `solution/.venv` and installs the pinned `gdstk 1.0.1`,
+`Shapely 2.0.7`, and `z3-solver 5.1.0.0` packages from `requirements.txt`.
+`run.sh` extracts the netlist from `puzzle.gds`, replays
 the checked-in input, requires `success` to go high, and checks that the decoded
 output equals `(* TWO STARS *)`.
 
@@ -73,17 +74,16 @@ The decoder fails if the supplied input does not raise `success`. Pass
 | `simulate_netlist.py` | Implements Boolean and sequential behavior for the recovered SKY130 cells, with utilities for replaying the supplied VCD. |
 | `extract_final_string.py` | Replays the input through the full netlist, checks `success`, and decodes `O[7:0]` as ASCII. |
 | `solve_puzzle.py` | Uses Z3 to find an input that raises `success` and emits printable output, then verifies it through the full circuit. |
-| `requirements-solver.txt` | Pins the optional Z3 dependency. |
+| `requirements.txt` | Pins the extraction, simulation, and Z3 dependencies. |
 | `known_solution_bits.txt` | Supplies the verified 121 serial input bits. |
 | `setup.sh` | Creates the isolated Python environment. |
 | `run.sh` | Runs extraction and decoding, together or individually. |
 
 ## Discover an input with Z3
 
-Install the optional solver dependency, extract the circuit, and run the search:
+After the quick-start setup, extract the circuit and run the search:
 
 ```sh
-solution/.venv/bin/python -m pip install -r solution/requirements-solver.txt
 ./solution/run.sh extract
 ./solution/run.sh solve
 ```
