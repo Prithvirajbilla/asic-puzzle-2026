@@ -1,2 +1,0 @@
-# Compatibility entry point; all dependencies are maintained in requirements.txt.
--r requirements.txt
